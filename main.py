@@ -1,5 +1,5 @@
 import numpy as np
-import random
+from random import shuffle
 
 def create_maze(dim):
     maze = np.ones((dim*2+1, dim*2+1))
@@ -8,11 +8,12 @@ def create_maze(dim):
     maze[2*x+1, 2*y+1] = 0
 
     stack = [(x, y)]
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
     while len(stack) > 0:
         x, y = stack[-1]
 
-        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-        random.shuffle(directions)
+        shuffle(directions)
 
         for dx, dy in directions:
             nx, ny = x + dx, y + dy
@@ -35,7 +36,7 @@ def create_maze(dim):
 
     return maze
 
-maze = create_maze(16)
+maze = create_maze(25)
 
 for row in maze:
     print(str(row).replace("[", "").replace("]", "").replace(",", "").replace("'", ""))
